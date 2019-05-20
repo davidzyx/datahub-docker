@@ -105,6 +105,10 @@ RUN python -m spacy download en
 RUN python -m spacy download de
 RUN python -m spacy download fr
 
+COPY allennlp-requirements.txt /
+RUN pip install -r allennlp-requirements.txt
+RUN pip install --no-deps allennlp==0.8.0
+
 ########################################################
 # Final setup steps below
 # clean conda cache last to free up space in the image

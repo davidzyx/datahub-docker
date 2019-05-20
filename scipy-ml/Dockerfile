@@ -66,14 +66,15 @@ RUN conda install -c conda-forge --yes  \
 				cudnn nccl \
 				tensorboard=1.12.2 \
 				tensorflow=1.12 \
-				tensorflow-gpu=1.12 \
-		&& conda install -c pytorch --yes \
+				tensorflow-gpu=1.12
+
+RUN conda install -c pytorch --yes \
 				pytorch \
 				torchvision
 
 RUN conda install --yes nltk spacy 
 
-RUN conda build purge-all && fix-permissions $CONDA_DIR
+RUN conda clean --all --yes && fix-permissions $CONDA_DIR
 
 # Install tensorboard plugin for Jupyter notebooks
 RUN pip install --no-cache-dir jupyter-tensorboard && \
