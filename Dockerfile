@@ -97,6 +97,8 @@ RUN apt-get -qq -y install protobuf-compiler python-pil python-lxml
 
 RUN pip install keras
 RUN conda install pytorch torchvision cudatoolkit=9.0 -c pytorch
+# from the layers branch, which has ROI pooling
+RUN pip install git+git://github.com/pytorch/vision.git@24577864e92b72f7066e1ed16e978e873e19d13d
 
 RUN conda install --yes nltk seaborn pandas
 
@@ -106,8 +108,8 @@ RUN python -m spacy download de
 RUN python -m spacy download fr
 
 COPY allennlp-requirements.txt /
-RUN pip install -r allennlp-requirements.txt
-RUN pip install --no-deps allennlp==0.8.0
+# RUN pip install -r allennlp-requirements.txt
+RUN pip install allennlp
 
 ########################################################
 # Final setup steps below
@@ -123,6 +125,8 @@ RUN pip install jupyterhub
 # For CUDA profiling, TensorFlow requires CUPTI.
 ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 ENV DEBIAN_FRONTEND teletype
+
+RUN export PYTHONPATH=~/r2c
 
 # TensorBoard
 EXPOSE 6006
