@@ -103,13 +103,15 @@ RUN pip install git+git://github.com/pytorch/vision.git@24577864e92b72f7066e1ed1
 RUN conda install --yes nltk seaborn pandas
 
 RUN pip install spacy
-RUN python -m spacy download en
-RUN python -m spacy download de
-RUN python -m spacy download fr
+# RUN python -m spacy download en
+# RUN python -m spacy download de
+# RUN python -m spacy download fr
 
 COPY allennlp-requirements.txt /
-# RUN pip install -r allennlp-requirements.txt
-RUN pip install allennlp
+RUN pip install -r allennlp-requirements.txt
+RUN pip install --no-deps allennlp==0.8.0
+RUN python -m spacy download en_core_web_sm
+
 
 ########################################################
 # Final setup steps below
